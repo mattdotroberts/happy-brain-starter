@@ -1,5 +1,7 @@
 # Email
 
+> **A known-good setup** is listed in [`docs/what-i-use.md`](../../docs/what-i-use.md), with what breaks.
+
 Where the deadlines live: invoices, bookings, confirmations, the things with
 dates attached.
 

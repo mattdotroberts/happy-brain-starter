@@ -1,5 +1,7 @@
 # Meeting notes and transcripts
 
+> **A known-good setup** is listed in [`docs/what-i-use.md`](../../docs/what-i-use.md), with what breaks.
+
 The only record of what was decided out loud. Most of what is agreed in a
 meeting is written down nowhere else.
 

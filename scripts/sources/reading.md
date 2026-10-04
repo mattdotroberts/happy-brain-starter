@@ -1,5 +1,7 @@
 # Saved reading (bookmarks, watched videos, articles)
 
+> **A known-good setup** is listed in [`docs/what-i-use.md`](../../docs/what-i-use.md), with what breaks.
+
 Not operational. This builds a reference library: why you believe what you
 believe, traceable months later.
 

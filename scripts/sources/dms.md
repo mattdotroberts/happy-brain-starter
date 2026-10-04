@@ -1,5 +1,7 @@
 # Professional DMs (LinkedIn, X, Slack)
 
+> **A known-good setup** is listed in [`docs/what-i-use.md`](../../docs/what-i-use.md), with what breaks.
+
 Low volume, high value. Introductions and opportunities arrive here and then get
 forgotten, because these inboxes are not checked like email.
 

@@ -1,5 +1,7 @@
 # A folder of documents
 
+> **A known-good setup** is listed in [`docs/what-i-use.md`](../../docs/what-i-use.md), with what breaks.
+
 The simplest source, and the right place to start if nothing else is connected.
 Drop files in, the agent reads them.
 

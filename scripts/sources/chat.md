@@ -1,5 +1,7 @@
 # Chat (WhatsApp, Signal, Telegram)
 
+> **A known-good setup** is listed in [`docs/what-i-use.md`](../../docs/what-i-use.md), with what breaks.
+
 Usually the richest source and the most sensitive. Most of what a person agrees
 to happens here, mixed in with their family.
 

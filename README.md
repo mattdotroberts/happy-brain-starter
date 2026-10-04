@@ -66,6 +66,10 @@ authorising a CLI or a connector, and that is where people stall. Start with one
 source. The folder-of-documents adapter needs nothing at all and is a fine way
 to see the shape before you wire up anything real.
 
+The stack this was built on, with what breaks in each tool, is in
+[`docs/what-i-use.md`](docs/what-i-use.md). One person's setup as of October
+2026, not a recommendation.
+
 Adding a source means writing a markdown page, not shipping code. Good adapters
 are very welcome as pull requests.
 
