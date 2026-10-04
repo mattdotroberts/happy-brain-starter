@@ -1,0 +1,110 @@
+# {{OWNER}}'s Brain — agent-managed wiki
+
+A Karpathy-style LLM wiki. An agent owns and maintains it. {{OWNER}} reads it,
+queries it, and points other agents at it, and does not hand-edit wiki pages.
+
+Timezone: {{TIMEZONE}}. Dates are absolute, never "yesterday".
+
+## The three layers
+
+1. `sources/` — **immutable raw material.** Ingested messages, mail, transcripts.
+   Append-only. NEVER edit or delete anything here; only add.
+2. `wiki/` — **the knowledge base you maintain.** Interlinked markdown: people,
+   projects, topics, digests. You own this layer entirely: create, rewrite, merge
+   and split pages as understanding improves.
+3. `AGENTS.md` + `state/` — **the schema and the bookkeeping.** Conventions live
+   here; per-source watermarks live in `state/ingest-state.json`.
+
+Division of labour: {{OWNER}} curates and decides; the agent does the
+bookkeeping, cross-references, index and digests.
+
+## Wiki structure
+
+- `wiki/index.md` — every page listed with a one-line summary. Keep it complete.
+- `wiki/commitments.md` — the open loops: what {{OWNER}} promised, what people
+  asked of them, what they are waiting on. Each with a date and a citation.
+  Sections: "Owed" / "Waiting on others" / "Recently closed".
+- `wiki/facts.md` — one canonical value per fact: prices, rates, budgets, counts,
+  rules other people set. Prose pages explain; this page settles. If a page and
+  this file disagree, this file wins and the page is rewritten. Overwrite a
+  changed value and move the old one to Superseded. A value nobody has agreed is
+  marked **OPEN** and is never quoted as settled.
+- `wiki/log.md` — append-only. One dated line per run. Never rewrite old lines.
+- `wiki/people/<kebab-name>.md` — one page per person who recurs.
+- `wiki/projects/<kebab-name>.md` — active work and ventures.
+- `wiki/topics/<kebab-name>.md` — concepts, tools, threads.
+- `wiki/digests/YYYY-MM-DD.md` — what came in that day and what changed.
+- `wiki/reference/` — durable learning from saved reading, kept separate from
+  operational tracking.
+
+## Page conventions
+
+- Wiki-links between pages: `[[people/jane-doe]]`, relative to `wiki/`.
+- Every claim from a source cites it inline: `(src: sources/<source>/<date>/<file>.md)`.
+- Top of each page: a 2-4 line summary. Facts below. Newest understanding wins:
+  rewrite stale text rather than appending forever.
+- Contradictions you cannot resolve get `⚠️ CONFLICT:` with both claims and both
+  citations. Never quietly pick one.
+- Do not create a page for something mentioned once. Two independent mentions, or
+  clear importance, earns a page.
+{{SCOPE_TAG_RULE}}
+
+## Sources
+
+{{SOURCES}}
+
+Each source has an adapter in `scripts/sources/` describing how to fetch it and
+what counts as noise. Read the adapter before ingesting from that source.
+
+## Never ingest
+
+{{EXCLUSIONS}}
+
+These are not summarised, not redacted, not stored. They do not reach
+`sources/` at all. When something is borderline, leave it out and say so in the
+digest.
+
+Also strip before writing anything down: identity numbers, home addresses,
+passwords, API keys, bank details, and one-time codes.
+
+Never send wiki or source content to an external service unless {{OWNER}} asks
+in that conversation.
+
+## Ingest (run {{CADENCE}})
+
+1. Read `state/ingest-state.json` for the per-source watermark.
+2. Fetch new items per source. Write each raw item under
+   `sources/<source>/YYYY-MM-DD/<id>.md` with frontmatter (date, from, permalink).
+3. Integrate: update or create the wiki pages each item touches. A batch should
+   produce 5 to 15 page edits, not one dumping ground.
+4. Commitments pass: scan for promises ("I'll send...", agreed dates) and for
+   requests aimed at {{OWNER}} → update `wiki/commitments.md`. Move fulfilled
+   items to Recently closed.
+5. Facts pass: any number with one correct answer goes in `wiki/facts.md`.
+6. Update `wiki/index.md`, write today's digest, append one line to `wiki/log.md`,
+   advance the watermarks.
+7. Be idempotent: if an item's file already exists in `sources/`, skip it.
+{{MIRROR_STEP}}
+{{COMMIT_STEP}}
+
+## Query
+
+Answer from `wiki/` first, following links. Drop to `sources/` only to verify or
+when the wiki is silent. If the answer surfaced something the wiki should have
+known, write it down before replying.
+
+## Lint (weekly)
+
+Run `python3 scripts/lint.py` first. It checks dead `[[links]]` on live pages,
+citations pointing at missing source files, pages missing from the index, and
+duplicate `[wiki-sync:...]` slugs. Fix everything it reports.
+
+Then sweep by hand for what a script cannot judge: stale claims, pages that
+should merge or split, uncited claims, and values that belong in `wiki/facts.md`.
+List judgement calls in the digest.
+
+## Session brief
+
+`.claude/settings.json` runs `scripts/session-brief.py` at session start. It
+injects the map, the last run and the newest commitments block. It fails
+silently by design. Keep it short; it costs context on every start.

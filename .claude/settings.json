@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/scripts/session-brief.py\" 2>/dev/null || true",
+            "timeout": 10,
+            "statusMessage": "Loading the brain's map"
+          }
+        ]
+      }
+    ]
+  }
+}

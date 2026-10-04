@@ -1,0 +1,21 @@
+# Your brain's actual content never belongs in this template repo.
+# When you use this as a template, DELETE these lines if you want your own
+# private repo to track your sources and wiki (most people should).
+sources/**
+!sources/.gitkeep
+# the worked example ships with the template
+!sources/**/example-*.md
+!sources/email/
+!sources/email/**
+!sources/meetings/
+!sources/meetings/**
+state/ingest-state.json
+
+# Personal permission overrides
+.claude/settings.local.json
+
+# Dependencies and junk
+node_modules/
+.DS_Store
+.env
+.env.*

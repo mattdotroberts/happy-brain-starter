@@ -1,0 +1,39 @@
+{
+  "_comment": "Copy to ingest-state.json during setup, keeping only the sources you chose. A null watermark means 'never run'; the first ingest should use a short window, not all of history.",
+  "chat": {
+    "enabled": false,
+    "watermark": null,
+    "access": "how you reach it, e.g. a local CLI with its own store",
+    "notes": "which groups are in scope, which are excluded"
+  },
+  "email": {
+    "enabled": false,
+    "watermark": null,
+    "access": "",
+    "notes": "what counts as noise: newsletters, receipts, login links"
+  },
+  "dms": {
+    "enabled": false,
+    "watermark": null,
+    "access": "",
+    "notes": ""
+  },
+  "meetings": {
+    "enabled": false,
+    "watermark": null,
+    "access": "",
+    "notes": ""
+  },
+  "reading": {
+    "enabled": false,
+    "watermark": null,
+    "access": "",
+    "notes": "bookmarks and watched videos; reference library, not commitments"
+  },
+  "documents": {
+    "enabled": false,
+    "watermark": null,
+    "access": "a folder you drop files into",
+    "notes": ""
+  }
+}
